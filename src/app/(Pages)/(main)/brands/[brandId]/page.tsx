@@ -8,7 +8,6 @@ import { ProductsApiResponse } from "@/Types";
 import ProductCard2 from "@/components/design/ProductCard2";
 import { apiServices } from "@/services";
 // import { handleAddToCart } from "@/helpers/addToCart";
-import { handleAddToWishlist } from "@/helpers/wishlist/addToWishlist";
 import ProductCardList from "@/components/design/ProductCardList";
 import LoadingComponent from "@/app/loading";
 import FilterSheet from "@/components/design/FilterSheet";
@@ -268,7 +267,7 @@ export default function SingleBrandProducts() {
               setIsOpenDialog={setIsOpenDialog}
               setCurrentProduct={setCurrentProduct}
               // onAddToCart={handleAddToCart}
-              onAddToWishlist={handleAddToWishlist}
+              // onAddToWishlist={handleAddToWishlist}
             />
           ))}
         </div>
@@ -281,7 +280,7 @@ export default function SingleBrandProducts() {
               product={product}
               setIsOpenDialog={setIsOpenDialog}
               setCurrentProduct={setCurrentProduct}
-              onAddToWishlist={handleAddToWishlist}
+              // onAddToWishlist={handleAddToWishlist}
             />
           ))}
         </div>
