@@ -9,7 +9,6 @@ import {
   SingleCategoryApiResponse,
   SingleProductApiResponse,
   SubCategoriesApiResponse,
-  VerifyTokenApiResponse,
 } from "@/Types";
 
 const mainUrl = process.env.NEXT_PUBLIC_URL;

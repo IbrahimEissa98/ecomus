@@ -23,7 +23,7 @@ const handler = NextAuth({
           placeholder: "*********",
         },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const response = await loginAction(
           credentials?.email ?? "",
           credentials?.password ?? ""
@@ -53,7 +53,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = user.user;
+        token.user = user;
         token.token = user.token;
       }
       return token;

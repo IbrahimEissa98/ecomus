@@ -29,7 +29,6 @@ import { SingleAddress } from "@/interfaces";
 import { apiServices } from "@/services";
 import LoadingComponent from "../loading";
 import { AddNewAddress } from "@/helpers/user/addNewAddress";
-import { toast } from "sonner";
 import { deleteAddress } from "@/helpers/user/deleteAddress";
 
 // Address schema

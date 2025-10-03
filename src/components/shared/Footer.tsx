@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [language, setLanguage] = useState<string>("English");
   const [currency, setCurrency] = useState<string>("USD");
-  const [directionOptions, setDirectionOptions] = useState<string[]>([]);
+  // const [ setDirectionOptions] = useState<string[]>([]);
 
   const pathname = usePathname();
 
@@ -29,13 +29,13 @@ const Footer: React.FC = () => {
     setEmail("");
   };
 
-  const toggleDirectionOption = (option: string) => {
-    setDirectionOptions((prev) =>
-      prev.includes(option)
-        ? prev.filter((item) => item !== option)
-        : [...prev, option]
-    );
-  };
+  // const toggleDirectionOption = (option: string) => {
+  //   setDirectionOptions((prev) =>
+  //     prev.includes(option)
+  //       ? prev.filter((item) => item !== option)
+  //       : [...prev, option]
+  //   );
+  // };
 
   // Social media links data
   const socialLinks = [

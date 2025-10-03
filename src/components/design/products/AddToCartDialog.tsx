@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Plus, Minus, ShoppingCart, X } from "lucide-react";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -14,8 +14,8 @@ import { Label } from "@/components/ui/label";
 import { Product } from "@/interfaces";
 import { AddToCart } from "@/helpers/cart/addToCart";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { storeDispatch, storeState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { storeDispatch } from "@/redux/store";
 import { getCartData, setCartDate } from "@/redux/slices/cartSlice";
 import { updateProductCountInCart } from "@/helpers/cart/updateProductCountInCart";
 

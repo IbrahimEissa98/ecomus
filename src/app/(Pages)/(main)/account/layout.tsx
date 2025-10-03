@@ -1,25 +1,6 @@
 import React, { ReactNode } from "react";
-import {
-  User,
-  MapPin,
-  ShoppingBag,
-  Heart,
-  CreditCard,
-  Settings,
-  Bell,
-  Lock,
-  LogOut,
-  Truck,
-  Gift,
-  Headphones,
-} from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import AccountHeader from "@/components/design/account/AccountHeader";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
-import { cn } from "@/lib/utils";
+import { CreditCard, Truck, Headphones } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import SidenavLinks from "@/components/design/account/SidenavLinks";
 
 const features = [

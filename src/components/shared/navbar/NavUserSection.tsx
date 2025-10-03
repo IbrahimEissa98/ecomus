@@ -37,7 +37,7 @@ export default function NavUserSection() {
               <p className="font-semibold text-sm hidden md:block">
                 Hi{" "}
                 <span className="font-normal">
-                  {session.data.user.name?.split(" ", 1)}
+                  {session.data.user.name.split(" ", 1)}
                 </span>
               </p>
             )}

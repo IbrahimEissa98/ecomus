@@ -12,11 +12,7 @@ import {
   UpdateUserDataI,
   VerifyTokenI,
 } from "@/interfaces";
-import {
-  AddAndRemoveAddressI,
-  GetAddressesI,
-  GetSpecificAddress,
-} from "@/interfaces/address";
+import { AddAndRemoveAddressI, GetAddressesI } from "@/interfaces/address";
 import { GetUserOrdersI } from "@/interfaces/orders";
 
 export type ProductsApiResponse = ApiResponse<Product>;

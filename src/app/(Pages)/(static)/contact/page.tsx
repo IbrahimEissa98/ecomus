@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import {
   Mail,
   Phone,
@@ -8,8 +8,6 @@ import {
   User,
   MessageSquare,
   Clock,
-  Moon,
-  Sun,
 } from "lucide-react";
 import Link from "next/link";
 
