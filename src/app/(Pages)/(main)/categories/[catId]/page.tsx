@@ -7,7 +7,6 @@ import { Grid, List } from "lucide-react";
 import { ProductsApiResponse } from "@/Types";
 import ProductCard2 from "@/components/design/ProductCard2";
 import { apiServices } from "@/services";
-import { handleAddToWishlist } from "@/helpers/wishlist/addToWishlist";
 import ProductCardList from "@/components/design/ProductCardList";
 import LoadingComponent from "@/app/loading";
 import FilterSheet from "@/components/design/FilterSheet";
@@ -267,7 +266,7 @@ export default function SingleCategoryProducts() {
               setIsOpenDialog={setIsOpenDialog}
               setCurrentProduct={setCurrentProduct}
               // onAddToCart={handleAddToCart}
-              onAddToWishlist={handleAddToWishlist}
+              // onAddToWishlist={handleAddToWishlist}
             />
           ))}
         </div>
@@ -281,7 +280,7 @@ export default function SingleCategoryProducts() {
               setIsOpenDialog={setIsOpenDialog}
               setCurrentProduct={setCurrentProduct}
               // onAddToCart={handleAddToCart}
-              onAddToWishlist={handleAddToWishlist}
+              // onAddToWishlist={handleAddToWishlist}
             />
           ))}
         </div>

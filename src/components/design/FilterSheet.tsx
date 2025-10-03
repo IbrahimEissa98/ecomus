@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { Filter, Search, X } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 // import PriceFilter from "./PriceFilter";
 import PriceFilter2 from "./PriceFilter2";
@@ -52,7 +52,7 @@ export default function FilterSheet({
 }: FilterSectionProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const [categories, setCategories] = useState<CategoryAndBrand[]>([]);
   const [brands, setBrands] = useState<CategoryAndBrand[]>();

@@ -61,10 +61,13 @@ export default function NavUserSection() {
             {session.status == "authenticated" ? (
               <>
                 <DropdownMenuItem asChild>
-                  <Link href={"/account"}>Account</Link>
+                  <Link href={"/account/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href={"/account/orders"}>All Orders</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={"/account/addresses"}>Addresses</Link>
                 </DropdownMenuItem>
               </>
             ) : (

@@ -9,9 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { CategoryAndBrand } from "@/interfaces";
 import { apiServices } from "@/services";
-import { BrandsApiResponse, CategoriesApiResponse } from "@/Types";
+import { CategoriesApiResponse } from "@/Types";
 import Image from "next/image";
 // import { useEffect, useState } from "react";
 import { Button } from "../ui";

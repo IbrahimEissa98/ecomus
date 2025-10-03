@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Albert_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/shared/navbar/Navbar";
 import Footer from "@/components/shared/Footer";
-import Navbar2 from "@/components/shared/navbar/Navbar2";
-import Navbar3 from "@/components/shared/navbar/Navbar3";
 import Navbar4 from "@/components/shared/navbar/Navbar4";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
