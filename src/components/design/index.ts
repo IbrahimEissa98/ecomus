@@ -8,6 +8,4 @@ export * from "./MainSliderHome";
 
 export * from "./ThemeToggler";
 
-export * from "./ProductCard";
-
 export * from "./ProductsContainer";
