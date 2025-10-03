@@ -53,7 +53,7 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = user;
+        token.user = user.user;
         token.token = user.token;
       }
       return token;
