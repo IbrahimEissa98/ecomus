@@ -2,9 +2,9 @@
 import { Button } from "@/components/ui";
 import { Badge } from "@/components/ui/badge";
 import { Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface NavCartOrWishProps {
   items: number;
@@ -12,6 +12,7 @@ interface NavCartOrWishProps {
   href: string;
   badgeVariant: "default" | "destructive" | "outline" | "secondary";
   isLoadingCart: boolean;
+  isAuth: boolean;
 }
 
 export default function NavCartOrWish({
@@ -20,8 +21,9 @@ export default function NavCartOrWish({
   href,
   badgeVariant,
   isLoadingCart,
+  isAuth,
 }: NavCartOrWishProps) {
-  const session = useSession();
+  // const session = useSession();
   return (
     <Button
       asChild
@@ -31,7 +33,7 @@ export default function NavCartOrWish({
     >
       <Link href={href}>
         {icon}
-        {session.status == "authenticated" && (
+        {isAuth && (
           <Badge
             variant={badgeVariant}
             className="absolute -top-1 -right-1 h-4 w-4 p-0 min-w-0 flex items-center justify-center"

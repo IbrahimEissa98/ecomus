@@ -108,6 +108,7 @@ const Navbar4: React.FC = () => {
                     items={Number(wishlistData?.count)}
                     isLoadingCart={wishlistLoading}
                     badgeVariant="destructive"
+                    isAuth={session.status == "authenticated"}
                   />
 
                   {/* Cart */}
@@ -117,6 +118,7 @@ const Navbar4: React.FC = () => {
                     items={Number(cartData?.numOfCartItems)}
                     isLoadingCart={cartLoading}
                     badgeVariant="default"
+                    isAuth={session.status == "authenticated"}
                   />
 
                   {/* User section */}

@@ -1,3 +1,4 @@
+import { getAccessToken } from "@/helpers/getToken";
 import { getUserId } from "@/helpers/user/getUserId";
 import {
   BrandsApiResponse,
@@ -128,6 +129,9 @@ class ApiServices {
   async GetUserCartData() {
     return await fetch(this.#baseUrl + "api/cart", {
       method: "GET",
+      headers: {
+        token: (await getAccessToken()) + "",
+      },
     }).then((res) => res.json());
   }
 
@@ -135,6 +139,9 @@ class ApiServices {
   async GetUserWishlistData() {
     return await fetch(this.#baseUrl + "api/wishlist", {
       method: "GET",
+      headers: {
+        token: (await getAccessToken()) + "",
+      },
     }).then((res) => res.json());
   }
 
