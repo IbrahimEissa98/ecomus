@@ -1,162 +1,3 @@
-// "use client";
-
-// import LoadingComponent from "@/app/(Pages)/(main)/account/loading";
-// import {
-//   Button,
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import { updateUserData } from "@/helpers/user/updateUserData";
-// import { Edit, Save, X } from "lucide-react";
-// import { useSession } from "next-auth/react";
-// import React, { useEffect, useState } from "react";
-
-// interface UserProfile {
-//   name: string | undefined;
-//   email: string | undefined;
-//   phone: string;
-// }
-
-// export default function ProfileDataEditor() {
-//   const { data: userData } = useSession();
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [profile, setProfile] = useState<UserProfile>({
-//     name: userData?.user.name,
-//     email: userData?.user.email,
-//     phone: "01012345678",
-//   });
-//   const [editedProfile, setEditedProfile] = useState(profile);
-
-//   const handleSave = async () => {
-//     // await updateUserData(
-//     //   editedProfile.name,
-//     //   editedProfile.email,
-//     //   editedProfile.phone
-//     // );
-//     setProfile(editedProfile);
-//     setIsEditing(false);
-//   };
-
-//   const handleCancel = () => {
-//     setEditedProfile(profile);
-//     setIsEditing(false);
-//   };
-
-//   useEffect(() => {
-//     if (userData != null) {
-//       setEditedProfile({
-//         name: userData?.user.name,
-//         email: userData?.user.email,
-//         phone: "01012345678",
-//       });
-//       setProfile({
-//         name: userData?.user.name,
-//         email: userData?.user.email,
-//         phone: "01012345678",
-//       });
-//     }
-//   }, [userData]);
-
-//   return (
-//     <>
-//       <Card>
-//         <CardHeader className="flex flex-row items-center justify-between">
-//           <div>
-//             <CardTitle>Personal Information</CardTitle>
-//             <CardDescription>Update your personal details</CardDescription>
-//           </div>
-//           {!isEditing ? (
-//             <Button
-//               variant="outline"
-//               size="sm"
-//               onClick={() => setIsEditing(true)}
-//               className="gap-2"
-//             >
-//               <Edit className="w-4 h-4" />
-//               Edit
-//             </Button>
-//           ) : (
-//             <div className="flex gap-2">
-//               <Button
-//                 variant="outline"
-//                 size="sm"
-//                 onClick={handleCancel}
-//                 className="gap-2"
-//               >
-//                 <X className="w-4 h-4" />
-//                 Cancel
-//               </Button>
-//               <Button
-//                 size="sm"
-//                 onClick={handleSave}
-//                 className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600"
-//               >
-//                 <Save className="w-4 h-4" />
-//                 Save
-//               </Button>
-//             </div>
-//           )}
-//         </CardHeader>
-//         <CardContent className="space-y-6">
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//             <div className="space-y-2">
-//               <Label htmlFor="name">Full Name</Label>
-//               <Input
-//                 id="name"
-//                 value={editedProfile.name}
-//                 onChange={(e) =>
-//                   setEditedProfile({
-//                     ...editedProfile,
-//                     name: e.target.value,
-//                   })
-//                 }
-//                 disabled={!isEditing}
-//                 className="h-11"
-//               />
-//             </div>
-//             <div className="space-y-2">
-//               <Label htmlFor="email">Email Address</Label>
-//               <Input
-//                 id="email"
-//                 type="email"
-//                 value={editedProfile.email}
-//                 onChange={(e) =>
-//                   setEditedProfile({
-//                     ...editedProfile,
-//                     email: e.target.value,
-//                   })
-//                 }
-//                 disabled={!isEditing}
-//                 className="h-11"
-//               />
-//             </div>
-//             <div className="space-y-2">
-//               <Label htmlFor="phone">Phone Number</Label>
-//               <Input
-//                 id="phone"
-//                 value={editedProfile.phone}
-//                 onChange={(e) =>
-//                   setEditedProfile({
-//                     ...editedProfile,
-//                     phone: e.target.value,
-//                   })
-//                 }
-//                 disabled={!isEditing}
-//                 className="h-11"
-//               />
-//             </div>
-//           </div>
-//         </CardContent>
-//       </Card>
-//     </>
-//   );
-// }
-
 "use client";
 
 import { SingleDataOfUpdateUserData } from "@/actions/user/updateUserData.action";
@@ -184,8 +25,8 @@ interface UserProfile {
 export default function ProfileDataEditor() {
   const { data: userData } = useSession();
   const [profile, setProfile] = useState<UserProfile>({
-    name: userData?.user.name,
-    email: userData?.user.email,
+    name: userData?.user.name as string,
+    email: userData?.user.email as string,
     phone: "01012345678",
   });
   const [editedProfile, setEditedProfile] = useState(profile);
@@ -248,8 +89,8 @@ export default function ProfileDataEditor() {
     document.title = "Account - Ecomus";
     if (userData != null) {
       const newProfile = {
-        name: userData?.user.name,
-        email: userData?.user.email,
+        name: userData?.user.name as string,
+        email: userData?.user.email as string,
         phone: "01012345678",
       };
       setProfile(newProfile);
