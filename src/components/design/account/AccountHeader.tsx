@@ -45,8 +45,8 @@ export default function AccountHeader() {
             <div className="relative">
               <Avatar className="w-32 h-32 border-4 border-background shadow-xl">
                 <AvatarFallback className="text-5xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
-                  {userData?.user.name
-                    .split(" ", 2)
+                  {userData?.user
+                    .name!.split(" ", 2)
                     .map((n) => n[0])
                     .join("")}
                 </AvatarFallback>
