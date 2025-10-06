@@ -4,12 +4,17 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const token = await getAccessToken();
+
+  if (!token) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const response: GetCartApiResponse = await fetch(
     "https://ecommerce.routemisr.com/api/v1/cart",
     {
       method: "GET",
       headers: {
-        token: token as string,
+        token,
       },
     }
   ).then((res) => res.json());

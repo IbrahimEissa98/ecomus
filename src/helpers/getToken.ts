@@ -8,5 +8,5 @@ export async function getAccessToken() {
     token: codedToken,
     secret: process.env.NEXTAUTH_SECRET!,
   });
-  return accessToken?.token;
+  return accessToken?.token as string;
 }
