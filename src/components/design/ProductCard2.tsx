@@ -15,6 +15,9 @@ import { storeDispatch, storeState } from "@/redux/store";
 import { AddToWishlist } from "@/helpers/wishlist/addToWishlist";
 import { getWishlistData } from "@/redux/slices/wishlistSlice";
 import { deleteFromWishlist } from "@/helpers/wishlist/deleteFromWishlist";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
@@ -31,6 +34,8 @@ const ProductCard2 = ({
 }: // onAddToCart,
 // onAddToWishlist,
 ProductCardProps) => {
+  const session = useSession();
+  const router = useRouter();
   const { wishlistData } = useSelector((state: storeState) => state.wishlist);
   const dispatch = useDispatch<storeDispatch>();
   const [isHovered, setIsHovered] = useState(false);
@@ -51,23 +56,40 @@ ProductCardProps) => {
     margin: "-15% 0px",
   });
 
-  const handleWishlistClick = async () => {
-    if (isWishlisted) {
-      setIsWishlisted(!isWishlisted);
-      await deleteFromWishlist(product._id);
+  const handleCartClick = async () => {
+    if (session.status == "authenticated") {
+      setCurrentProduct(product);
+      setIsOpenDialog(true);
     } else {
-      setIsWishlisted(!isWishlisted);
-      await AddToWishlist(product._id);
+      toast.warning("Please sign in first.");
+      router.push("/auth/login");
     }
-    await dispatch(getWishlistData());
+  };
+
+  const handleWishlistClick = async () => {
+    if (session.status == "authenticated") {
+      if (isWishlisted) {
+        setIsWishlisted(!isWishlisted);
+        await deleteFromWishlist(product._id);
+      } else {
+        setIsWishlisted(!isWishlisted);
+        await AddToWishlist(product._id);
+      }
+      await dispatch(getWishlistData());
+    } else {
+      toast.info("Please sign in first.");
+      router.push("/auth/login");
+    }
   };
 
   useEffect(() => {
-    wishlistData?.data.forEach((item) => {
-      if (item._id == product._id) {
-        setIsWishlisted(true);
-      }
-    });
+    if (wishlistData?.status == "success") {
+      wishlistData?.data.forEach((item) => {
+        if (item._id == product._id) {
+          setIsWishlisted(true);
+        }
+      });
+    }
   }, [wishlistData]);
 
   return (
@@ -194,10 +216,7 @@ ProductCardProps) => {
               {/* Add to cart button */}
               {/* <AddToCartDialog product={product} /> */}
               <Button
-                onClick={() => {
-                  setCurrentProduct(product);
-                  setIsOpenDialog(true);
-                }}
+                onClick={handleCartClick}
                 className="w-full flex items-center justify-center gap-1 text-white bg-blue-600 hover:bg-blue-700 mb-3"
               >
                 <ShoppingCart className="h-4 w-4" />

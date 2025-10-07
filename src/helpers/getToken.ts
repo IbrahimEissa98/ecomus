@@ -4,11 +4,12 @@ import { cookies } from "next/headers";
 export async function getAccessToken() {
   const sessionCookies = await cookies();
   const codedToken =
-    sessionCookies.get("__Secure-next-auth.session-token")?.value ||
-    sessionCookies.get("next-auth.session-token")?.value;
+    sessionCookies.get("next-auth.session-token")?.value ||
+    sessionCookies.get("__Secure-next-auth.session-token")?.value;
   const accessToken = await decode({
     token: codedToken,
     secret: process.env.NEXTAUTH_SECRET!,
   });
-  return accessToken?.token as string;
+  console.log("🚀 ~ getAccessToken ~ accessToken?.token:", accessToken);
+  return accessToken?.token;
 }

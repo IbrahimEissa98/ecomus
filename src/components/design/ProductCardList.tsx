@@ -13,6 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { storeDispatch, storeState } from "@/redux/store";
 import { deleteFromWishlist } from "@/helpers/wishlist/deleteFromWishlist";
 import { getWishlistData } from "@/redux/slices/wishlistSlice";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface ProductCardListProps {
   product: Product;
@@ -29,6 +32,8 @@ const ProductCardList = ({
 }: // onAddToCart,
 // onAddToWishlist,
 ProductCardListProps) => {
+  const session = useSession();
+  const router = useRouter();
   const { wishlistData } = useSelector((state: storeState) => state.wishlist);
   const dispatch = useDispatch<storeDispatch>();
   const [isHovered, setIsHovered] = useState(false);
@@ -36,15 +41,30 @@ ProductCardListProps) => {
 
   const desc = useRef<HTMLParagraphElement>(null);
 
-  const handleWishlistClick = async () => {
-    if (isWishlisted) {
-      setIsWishlisted(!isWishlisted);
-      await deleteFromWishlist(product._id);
+  const handleCartClick = async () => {
+    if (session.status == "authenticated") {
+      setCurrentProduct(product);
+      setIsOpenDialog(true);
     } else {
-      setIsWishlisted(!isWishlisted);
-      await AddToWishlist(product._id);
+      toast.warning("Please sign in first.");
+      router.push("/auth/login");
     }
-    await dispatch(getWishlistData());
+  };
+
+  const handleWishlistClick = async () => {
+    if (session.status == "authenticated") {
+      if (isWishlisted) {
+        setIsWishlisted(!isWishlisted);
+        await deleteFromWishlist(product._id);
+      } else {
+        setIsWishlisted(!isWishlisted);
+        await AddToWishlist(product._id);
+      }
+      await dispatch(getWishlistData());
+    } else {
+      toast.info("Please sign in first.");
+      router.push("/auth/login");
+    }
   };
 
   useEffect(() => {
@@ -173,10 +193,7 @@ ProductCardListProps) => {
             {/* Add to cart button */}
             {/* <AddToCartBtn productId={product._id} /> */}
             <Button
-              onClick={() => {
-                setCurrentProduct(product);
-                setIsOpenDialog(true);
-              }}
+              onClick={handleCartClick}
               className="flex items-center justify-center gap-1 text-white bg-blue-600 hover:bg-blue-700 mb-3"
             >
               <ShoppingCart className="h-4 w-4" />

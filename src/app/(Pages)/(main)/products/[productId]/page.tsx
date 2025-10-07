@@ -10,6 +10,7 @@ import {
   Truck,
   RotateCcw,
   Check,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,15 +20,23 @@ import Image from "next/image";
 import { Product } from "@/interfaces";
 import LoadingComponent from "@/app/loading";
 import { apiServices } from "@/services";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { renderStars } from "@/helpers/renderStars";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { storeDispatch, storeState } from "@/redux/store";
+import { deleteFromWishlist } from "@/helpers/wishlist/deleteFromWishlist";
+import { AddToWishlist } from "@/helpers/wishlist/addToWishlist";
+import { getWishlistData } from "@/redux/slices/wishlistSlice";
+import { AddToCart } from "@/helpers/cart/addToCart";
+import { updateProductCountInCart } from "@/helpers/cart/updateProductCountInCart";
+import { getCartData, setCartDate } from "@/redux/slices/cartSlice";
 
 export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState(-1);
   const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isZooming, setIsZooming] = useState(false);
@@ -38,6 +47,12 @@ export default function ProductDetailPage() {
   const desc = useRef<HTMLParagraphElement>(null);
 
   const { productId } = useParams();
+  const session = useSession();
+  const router = useRouter();
+  const { wishlistData } = useSelector((state: storeState) => state.wishlist);
+  const dispatch = useDispatch<storeDispatch>();
+  const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
+  const [isAdding, setIsAdding] = useState(false);
 
   // Fetching Specific Product data
   async function fetchSpecificProduct() {
@@ -61,6 +76,14 @@ export default function ProductDetailPage() {
         .replace(/\t/g, ": ");
     }
   }, [mockProduct, loading]);
+
+  useEffect(() => {
+    wishlistData?.data.forEach((item) => {
+      if (item._id == mockProduct?._id) {
+        setIsWishlisted(true);
+      }
+    });
+  }, [wishlistData]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageRef.current || !containerRef.current) return;
@@ -86,13 +109,38 @@ export default function ProductDetailPage() {
     setMousePosition({ x: mouseX, y: mouseY });
   };
 
-  const handleAddToCart = () => {
-    console.log("Added to cart:", { product: mockProduct, quantity });
+  const handleCartClick = async () => {
+    if (session.status == "authenticated") {
+      setIsAdding(true);
+      // Simulate API call
+      const data = await AddToCart(mockProduct!._id);
+      if (quantity > 1) {
+        await updateProductCountInCart(mockProduct!._id, quantity);
+        await dispatch(getCartData());
+      } else {
+        dispatch(setCartDate(data));
+      }
+      setIsAdding(false);
+    } else {
+      toast.warning("Please sign in first.");
+      router.push("/auth/login");
+    }
   };
 
-  const handleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-    console.log("Wishlist toggled:", isWishlisted);
+  const handleWishlistClick = async () => {
+    if (session.status == "authenticated") {
+      if (isWishlisted) {
+        setIsWishlisted(!isWishlisted);
+        await deleteFromWishlist(mockProduct!._id);
+      } else {
+        setIsWishlisted(!isWishlisted);
+        await AddToWishlist(mockProduct!._id);
+      }
+      await dispatch(getWishlistData());
+    } else {
+      toast.info("Please sign in first.");
+      router.push("/auth/login");
+    }
   };
 
   if (loading) {
@@ -431,12 +479,18 @@ export default function ProductDetailPage() {
                 <Button
                   size="lg"
                   className="flex-1 h-14 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-                  onClick={handleAddToCart}
+                  onClick={handleCartClick}
                   disabled={
-                    mockProduct.quantity == 0 || isNaN(mockProduct.quantity)
+                    mockProduct.quantity == 0 ||
+                    isNaN(mockProduct.quantity) ||
+                    isAdding
                   }
                 >
-                  <ShoppingCart size={20} className="mr-2" />
+                  {isAdding ? (
+                    <Loader2 className="animate-spin size-5 mr-2" />
+                  ) : (
+                    <ShoppingCart size={20} className="mr-2" />
+                  )}
                   Add to Cart
                 </Button>
                 <Button
@@ -445,7 +499,7 @@ export default function ProductDetailPage() {
                   className={`h-14 px-6 ${
                     isWishlisted ? "bg-red-500 hover:bg-red-600 text-white" : ""
                   }`}
-                  onClick={handleWishlist}
+                  onClick={handleWishlistClick}
                 >
                   <Heart
                     size={20}

@@ -12,7 +12,11 @@ export const renderStars = (rating: number, size: number = 14) => {
       );
     } else if (i === fullStars + 1 && hasHalfStar) {
       stars.push(
-        <StarHalf key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+        <StarHalf
+          key={i}
+          size={size}
+          className="fill-yellow-400 text-yellow-400"
+        />
       );
     } else {
       stars.push(<Star key={i} className="w-3 h-3 text-transparent" />);
