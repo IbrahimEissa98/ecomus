@@ -11,6 +11,5 @@ export async function getAccessToken() {
     token: codedToken,
     secret: process.env.NEXTAUTH_SECRET!,
   });
-  console.log("🚀 ~ getAccessToken ~ accessToken?.token:", accessToken);
   return accessToken?.token;
 }

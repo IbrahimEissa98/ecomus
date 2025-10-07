@@ -162,7 +162,7 @@ export default function OrdersContent({
                         {order.cartItems.map((item) => (
                           <div
                             key={item._id}
-                            className="flex items-center gap-4 p-3 bg-muted/30 rounded-lg"
+                            className="flex items-center gap-4 p-3 bg-muted/30 rounded-lg w-full overflow-hidden"
                           >
                             <div className="relative w-16 h-16 rounded-md overflow-hidden">
                               <Image
@@ -177,7 +177,7 @@ export default function OrdersContent({
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium truncate">
+                              <p className="font-medium truncate line-clamp-1">
                                 {item.product.title}
                               </p>
                               <p className="text-sm text-muted-foreground">
@@ -266,7 +266,7 @@ export default function OrdersContent({
                       </div>
 
                       <div className="bg-primary/5 p-4 rounded-lg">
-                        <div className="flex justify-between items-center mb-2">
+                        <div className="flex flex-col sm:flex-row justify-between items-center mb-2">
                           <span className="font-medium">Total:</span>
                           <span className="text-lg font-bold text-primary">
                             {formatCurrency(order.totalOrderPrice)}
