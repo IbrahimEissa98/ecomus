@@ -10,7 +10,7 @@ export async function onlinePaymentAction(
   return await fetch(
     "https://ecommerce.routemisr.com/api/v1/orders/checkout-session/" +
       cartId +
-      "?url=http://localhost:3000",
+      "?url=https://ecomus-ochre.vercel.app/",
     {
       method: "POST",
       headers: {
